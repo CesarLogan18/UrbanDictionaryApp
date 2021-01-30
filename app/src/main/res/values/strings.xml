@@ -1,0 +1,18 @@
+<resources>
+    //app
+    <string name="app_name">UrbanDictionaryApp</string>
+
+    //main
+    <string name="main_search_place_holder">Please enter a word</string>
+    <string name="main_filter_by">Filter by</string>
+
+    // img hint
+    <string name="thumbs_up_hint">thumbs_up</string>
+    <string name="thumbs_down_hint">thumbs_down</string>
+    <string name="book_icon_hint">book Icon</string>
+
+    //errors
+    <string name="flow_error"> An Internal Error has occurred</string>
+    <string name="routine_error"> A System Error has occurred</string>
+    <string name="empty_list">No results found for this search</string>
+</resources>
