@@ -9,20 +9,6 @@ open class WordRepository @Inject constructor(
     private val remoteDataSource: UrbanDictionaryRemoteDataSource,
 ) {
 
-//    fun getWordDefinition(term: String): Resource<WordList> =
-//        liveData(Dispatchers.IO) {
-//            emit(Resource.loading())
-//
-//            val responseStatus =
-//            if (responseStatus.status == Resource.Status.SUCCESS) {
-//
-//                emit(responseStatus)
-//            } else if (responseStatus.status == Resource.Status.ERROR) {
-//                emit(Resource.error(responseStatus.message!!))
-//                //  emitSource(source)
-//            }
-//        }
-
     open suspend fun getWordDefinition(term: String): Resource<List<Word>?> {
         return remoteDataSource.getWords(term)
     }

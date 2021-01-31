@@ -44,9 +44,7 @@ class MainViewModelTest() {
     @Mock
     private lateinit var remoteSource: UrbanDictionaryRemoteDataSource
 
-    @Mock
-    private lateinit var mockRepo: WordRepository
-
+    
     private lateinit var fakeRepo: FakeRepo
 
     private lateinit var subject: MainViewModel
