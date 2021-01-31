@@ -102,16 +102,4 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25" />
 
-    <TextView
-        android:id="@+id/et_feedback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/rv_word"
-        app:layout_constraintEnd_toEndOf="@id/rv_word"
-        app:layout_constraintStart_toStartOf="@id/rv_word"
-        app:layout_constraintTop_toTopOf="@id/rv_word"
-        tools:text="TextView" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

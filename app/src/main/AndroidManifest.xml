@@ -14,7 +14,8 @@
         android:name=".AndroidApplication"
         android:theme="@style/Theme.NikeApplication">
         <activity android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

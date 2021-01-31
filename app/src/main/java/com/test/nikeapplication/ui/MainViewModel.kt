@@ -8,10 +8,7 @@ import com.test.nikeapplication.utils.Resource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.*
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -19,7 +16,7 @@ class MainViewModel @ViewModelInject constructor(
     private val repository: WordRepository
 ) : ViewModel() {
 
-
+    val repoWordsFlow: Flow<Resource<List<Word>?>>
     private val repoWords: LiveData<Resource<List<Word>?>>
     private var filterWord = MutableLiveData<FilterEnum>().apply { value = FilterEnum.THUMBS_UP }
     val queryChannel = BroadcastChannel<String>(Channel.CONFLATED)
@@ -37,7 +34,7 @@ class MainViewModel @ViewModelInject constructor(
     }
 
     init {
-        repoWords = queryChannel
+        repoWordsFlow = queryChannel
             .asFlow()
             .debounce(DELAY_TIME)
             .mapLatest {
@@ -60,29 +57,34 @@ class MainViewModel @ViewModelInject constructor(
                         Resource.error(e.message, messageID = ROUTINE_ERROR)
                     }
                 }
-            }.catch { emit(Resource.error(null, messageID = FLOW_ERROR)) }.asLiveData()
+            }.catch { emit(Resource.error(null, messageID = FLOW_ERROR)) }
+
+        repoWords = repoWordsFlow.asLiveData()
 
         orderedWords.addSource(repoWords) {
-            orderedWords.value = combineLatestData()
+            orderedWords.value = combineLatestData(repoWords.value, filterWord.value)
         }
         orderedWords.addSource(filterWord) {
-            orderedWords.value = combineLatestData()
+            orderedWords.value = combineLatestData(repoWords.value, filterWord.value)
         }
 
     }
 
-    private fun combineLatestData(): List<Word> {
+    fun combineLatestData(
+        repoWordsValue: Resource<List<Word>?>?,
+        filterValue: FilterEnum?
+    ): List<Word> {
 
-        if (repoWords.value != null) {
+        if (repoWordsValue != null) {
 
-            val value: Resource<List<Word>?> = repoWords.value!!
+            val value: Resource<List<Word>?> = repoWordsValue
 
             return if (value.status == Resource.Status.SUCCESS && value.data != null) {
                 val data: List<Word> = value.data
 
                 feedBackMsg.value = if (data.isEmpty()) IS_EMPTY else null
 
-                when (filterWord.value!!) {
+                when (filterValue!!) {
                     FilterEnum.THUMBS_UP -> data.sortedByDescending { it1 -> it1.thumbs_up }
                     FilterEnum.THUMBS_DOWN -> data.sortedByDescending { it1 -> it1.thumbs_down }
                 }

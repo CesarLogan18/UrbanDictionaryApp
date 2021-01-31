@@ -5,7 +5,7 @@ import com.test.nikeapplication.utils.Resource
 import javax.inject.Inject
 
 
-class UrbanDictionaryRemoteDataSource @Inject constructor(
+open class UrbanDictionaryRemoteDataSource @Inject constructor(
     private val urbanDictionaryService: UrbanDictionaryService
 ) : BaseRemoteDataSource() {
 
