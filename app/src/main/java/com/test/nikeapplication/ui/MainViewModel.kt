@@ -41,9 +41,9 @@ class MainViewModel @ViewModelInject constructor(
                 try {
                     withContext(Dispatchers.IO) {
                         if (it.isNotEmpty()) {
-                            loading.postValue(true);
-                            val result = repository.getWordDefinition(it);
-                            loading.postValue(false);
+                            loading.postValue(true)
+                            val result = repository.getWordDefinition(it)
+                            loading.postValue(false)
                             result
 
                         } else {
@@ -104,5 +104,5 @@ class MainViewModel @ViewModelInject constructor(
         filterWord.value = currentFilter
     }
 
-    fun getCurrentFilter(): FilterEnum = filterWord.value!!;
+    fun getCurrentFilter(): FilterEnum = filterWord.value!!
 }

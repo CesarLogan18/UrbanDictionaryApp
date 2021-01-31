@@ -39,7 +39,7 @@ class MainUITest {
 
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
 
-        onView(withId(R.id.rv_word)).check(RecyclerViewItemCountAssertion(0));
+        onView(withId(R.id.rv_word)).check(RecyclerViewItemCountAssertion(0))
 
 
     }
